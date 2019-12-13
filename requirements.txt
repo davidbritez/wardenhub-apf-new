@@ -1,9 +1,16 @@
 Click==7.0
+cmake==3.13.3
+dlib==19.18.0
+face-recognition==1.2.3
+face-recognition-models==0.3.0
 Flask==1.1.1
 itsdangerous==1.1.0
 Jinja2==2.10.3
 MarkupSafe==1.1.1
 mysql-connector-python==8.0.18
+numpy==1.17.4
+opencv-python==4.1.2.30
+Pillow==6.2.1
 pkg-resources==0.0.0
 protobuf==3.11.1
 six==1.13.0

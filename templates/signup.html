@@ -29,7 +29,7 @@
                 email = document.getElementById('email')
                 // POST DATA
                 let xhr = new XMLHttpRequest()
-                xhr.open("POST", '/api/process_photo', true)
+                xhr.open("POST", '/api/add_user', true)
                 xhr.setRequestHeader('Content-Type', 'applcation/json')
                 xhr.send(JSON.stringify({
                     photo: photo.src,
