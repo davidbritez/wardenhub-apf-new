@@ -25,16 +25,19 @@ def connect():
  
     except Error as e:
         print(e)
- 
+
 
 def query_db(sql_query, query_type):
     cnx = connect()
     cursor = cnx.cursor()
     cursor.execute(sql_query)
-    ## SWITCH for different queries
+
+    ## SWITCH to handle different query types
     if(query_type=="select"):
-        return cursor.fetchall()
+        results = cursor.fetchall()
+        cnx.close()
+        return results
+
     if(query_type=="insert"):
         cnx.commit()
-    cnx.close()
-    return result
+        cnx.close()
