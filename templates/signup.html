@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>Warden Facial Recognition Software</title>
+    </head>
+    <body>
+        <h1>WardenHub Facial Recognition Software</h1>
+        <h1>Camera</h1>
+        <div class="camera">
+            <video id="video">Video stream not available.</video>
+            <button id="startbutton">Take photo</button>
+        </div>
+
+        <!-- Display photo taken -->
+        <canvas id="canvas"></canvas>
+        <form action="#">
+        <div class="output">
+          <img id="photo" alt="The screen capture will appear in this box.">
+        </div>
+        <input id="email" type="email" placeholder="email" required="true"></input>
+        <button type="submit" id="sendphoto">Sign Up</button>
+        </form> 
+        <!-- Scripts -->
+        <script type="text/javascript" src="/camera.js"></script>
+        <script type="text/javascript">
+            // Sending the Photo to the server for processing
+            sendphotobutton = document.getElementById('sendphoto')
+            sendphotobutton.addEventListener('click', function(ev) {
+                photo = document.getElementById('photo')
+                email = document.getElementById('email')
+                // POST DATA
+                let xhr = new XMLHttpRequest()
+                xhr.open("POST", '/api/process_photo', true)
+                xhr.setRequestHeader('Content-Type', 'applcation/json')
+                xhr.send(JSON.stringify({
+                    photo: photo.src,
+                    email: email.value
+                }))
+                xhr.onload = function() {
+                    console.log("HELLO")
+                    console.log(this.responseText);
+                    var data = JSON.parse(this.responseText);
+                    console.log(data);
+                }
+            })
+        </script>
+    </body>
+</html>

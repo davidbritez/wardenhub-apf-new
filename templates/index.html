@@ -4,36 +4,8 @@
     </head>
     <body>
         <h1>WardenHub Facial Recognition Software</h1>
-        <h1>Camera</h1>
-        <div class="camera">
-            <video id="video">Video stream not available.</video>
-            <button id="startbutton">Take photo</button>
-          </div>
-        <canvas id="canvas"></canvas>
-        <div class="output">
-          <img id="photo" alt="The screen capture will appear in this box.">
-        </div>
-        <button id="sendphoto">Send Photo</button>
-        <script type="text/javascript" src="/camera.js"></script>
-        <script type="text/javascript">
-            sendphotobutton = document.getElementById('sendphoto')
-            sendphotobutton.addEventListener('click', function(ev) {
-                photo = document.getElementById('photo')
-                // POST DATA
-
-                let xhr = new XMLHttpRequest()
-                xhr.open("POST", '/api/process_photo', true)
-                xhr.setRequestHeader('Content-Type', 'applcation/json')
-                xhr.send(JSON.stringify({
-                    photo: photo.src
-                }))
-                xhr.onload = function() {
-                    console.log("HELLO")
-                    console.log(this.responseText);
-                    var data = JSON.parse(this.responseText);
-                    console.log(data);
-                }
-            })
-        </script>
+        <h3> What do you want to do? </h3>
+        <a href="/signup">signup</a>
+        <a href="/process">recognzie me!</a>
     </body>
 </html>
