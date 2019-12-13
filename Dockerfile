@@ -1,4 +1,6 @@
-FROM gcr.io/google-appengine/python
+FROM python:3.6-slim-stretch
+
+RUN apt-get -y update
 
 # need to install cmake before dlib
 # dlib is required by app face_recognition

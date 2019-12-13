@@ -1,8 +1,11 @@
-import logging
+# import logging
 import json
-
+import re
+from PIL import Image
+from io import BytesIO
+import base64
 from flask import Flask, render_template, request, Response, jsonify
-# import face_recognition
+import face_recognition
 
 app = Flask(__name__, static_url_path='', static_folder='static')
 
@@ -17,9 +20,16 @@ def signup():
 @app.route('/api/add_user', methods=['POST'])
 def add_user():
     data = json.loads(request.data)
-    photo = data['photo']
+
+    # We are getting teh post with the form data:image/.. and in base 64 format. 
+    # Sould extract the binary data
+    photo_data = re.sub('^data:image/.+;base64,', '',data['photo'])
+    photo = BytesIO(base64.b64decode(photo_data))
     email = data['email']
-    print(photo)
+
+    user_face = face_recognition.load_image_file(photo)
+    user_face_encoding = face_recognition.face_encodings(user_face)[0]
+    print(user_face_encoding)
     return "200"
 
 @app.route('/api/process_photo', methods=['POST'])
