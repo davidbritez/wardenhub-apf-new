@@ -59,21 +59,26 @@ def generate_face_encodings(photo):
     return user_face_encoding
 
 def save_user(name, email, face_encoding):
-    face_encoding_str = np.array_str(face_encoding) #insert string to DB
-    insert_query = "INSERT INTO Usuarios (nombre, email, rostro) VALUES('{}', '{}', '{}');".format(name, email, face_encoding_str)
-    query_db(sql_query)
-
-    # Check if face exists
-    # if (match_user(face_encoding) == ''):
-        # Save user to database
+    user_exists_query = "SELECT * FROM Usuarios WHERE email='{}';".format(email)
+    user_exists = query_db(user_exists_query, 'select')
+]   
+    # Check if face exists - could be implemented by checking the face values
+    if (user_exists == []):
+        face_encoding_str = np.array_str(face_encoding) #insert string to DB
+        insert_query = "INSERT INTO Usuarios (nombre, email, rostro) VALUES('{}', '{}', '{}');".format(name, email, face_encoding_str)
+        query_db(sql_query, 'insert')
     return ''
     
-def query_db(sql_query):
+def query_db(sql_query, query_type):
     cnx = db.connect()
     cursor = cnx.cursor()
     cursor.execute(sql_query)
-    cnx.commit()
+    if(query_type=="select"):
+        return cursor.fetchall()
+    if(query_type=="insert"):
+        cnx.commit()
     cnx.close()
+    return result
 
 def match_user(face_encoding):
     user_face_encoding = generate_photo_encodings(face_encoding)
