@@ -23,10 +23,16 @@ def add_user():
 
     user_face_encoding = generate_photo_encodings(data['photo'])
     print(user_face_encoding)
+    
     return "200"
 
 @app.route('/api/process_photo', methods=['POST'])
 def process_photo():
+
+    data = json.loads(request.data)
+    user_face_encoding = generate_photo_encodings(data['photo'])
+    print(user_face_encoding)
+
     return str(200)
 
 
@@ -34,14 +40,17 @@ def generate_photo_encodings(photo):
     # We are getting teh post with the form data:image/.. and in base 64 format. 
     # Sould extract the binary data
 
-    photo_data = re.sub('^data:image/.+;base64,', '',data['photo'])
-    photo = BytesIO(base64.b64decode(photo_data))
-    email = data['email']
-
-    user_face = face_recognition.load_image_file(photo)
+    photo_data = re.sub('^data:image/.+;base64,', '',photo)
+    user_photo = BytesIO(base64.b64decode(photo_data))
+    
+    user_face = face_recognition.load_image_file(user_photo)
     user_face_encoding = face_recognition.face_encodings(user_face)[0]
     return user_face_encoding
 
+
+def match_user(photo):
+    user_face_encoding = generate_photo_encodings(photo)
+    # Find if t
 
 if __name__ == '__main__':
     HOST = '0.0.0.0'

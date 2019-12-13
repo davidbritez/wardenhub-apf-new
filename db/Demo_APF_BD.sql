@@ -18,13 +18,14 @@ USE `wardenhubapf` ;
 -- Table `wardenhubapf`.`Usuarios`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `wardenhubapf`.`Usuarios` (
-  `Cedula` INT(11) NOT NULL,
-  `Nombre` VARCHAR(50) NOT NULL DEFAULT 'Sin nombre',
-  `Apellido` VARCHAR(50) NOT NULL DEFAULT 'Sin nombre',
-  `Rostro` TEXT NOT NULL,
-  PRIMARY KEY (`Cedula`))
+  `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `nombre` VARCHAR(50) NOT NULL DEFAULT '',
+  `email` VARCHAR(50) NOT NULL DEFAULT '',
+  `Rostro` TEXT NOT NULL
+  )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

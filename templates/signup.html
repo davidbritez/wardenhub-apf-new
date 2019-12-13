@@ -17,6 +17,8 @@
           <img id="photo" alt="The screen capture will appear in this box.">
         </div>
         <input id="email" type="email" placeholder="email" required="true"></input>
+        <input id="name" type="text" placeholder="name" required="true"></input>
+
         <button type="submit" id="sendphoto">Sign Up</button>
         </form> 
         <!-- Scripts -->
@@ -33,7 +35,8 @@
                 xhr.setRequestHeader('Content-Type', 'applcation/json')
                 xhr.send(JSON.stringify({
                     photo: photo.src,
-                    email: email.value
+                    email: email.value,
+                    name: name.value
                 }))
                 xhr.onload = function() {
                     console.log("HELLO")
