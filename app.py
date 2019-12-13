@@ -39,7 +39,6 @@ def process_photo():
     data = json.loads(request.data)
 
     user_face_encoding = generate_face_encodings(data['photo'])
-    print(user_face_encoding)
 
     return str(200)
 
@@ -55,30 +54,20 @@ def generate_face_encodings(photo):
     user_face_locations = face_recognition.face_locations(user_face)
     # TODO catch error if no face
     user_face_encoding = face_recognition.face_encodings(user_face, user_face_locations)[0]
-    print(user_face_encoding)
+
     return user_face_encoding
 
 def save_user(name, email, face_encoding):
     user_exists_query = "SELECT * FROM Usuarios WHERE email='{}';".format(email)
-    user_exists = query_db(user_exists_query, 'select')
-]   
+    user_exists = db.query_db(user_exists_query, 'select')
+
     # Check if face exists - could be implemented by checking the face values
     if (user_exists == []):
         face_encoding_str = np.array_str(face_encoding) #insert string to DB
         insert_query = "INSERT INTO Usuarios (nombre, email, rostro) VALUES('{}', '{}', '{}');".format(name, email, face_encoding_str)
-        query_db(sql_query, 'insert')
+        db.query_db(sql_query, 'insert')
     return ''
     
-def query_db(sql_query, query_type):
-    cnx = db.connect()
-    cursor = cnx.cursor()
-    cursor.execute(sql_query)
-    if(query_type=="select"):
-        return cursor.fetchall()
-    if(query_type=="insert"):
-        cnx.commit()
-    cnx.close()
-    return result
 
 def match_user(face_encoding):
     user_face_encoding = generate_photo_encodings(face_encoding)
