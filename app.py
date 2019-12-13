@@ -1,9 +1,9 @@
-from flask import Flask, request, Response
+from flask import Flask, render_template, request, Response
 
 app = Flask(__name__)
 @app.route('/')
 def index():
-    return 'hello world'
+    return render_template('index.html')
 
 @app.route('/api/add_user', methods=['POST'])
 def add_user():
