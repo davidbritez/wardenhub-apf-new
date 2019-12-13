@@ -17,7 +17,7 @@
           <img id="photo" alt="The screen capture will appear in this box.">
         </div>
         <input id="email" type="email" placeholder="email" required="true"></input>
-        <input id="name" type="text" placeholder="name" required="true"></input>
+        <input id="user-name" type="text" placeholder="name" required="true"></input>
 
         <button type="submit" id="sendphoto">Sign Up</button>
         </form> 
@@ -29,6 +29,7 @@
             sendphotobutton.addEventListener('click', function(ev) {
                 photo = document.getElementById('photo')
                 email = document.getElementById('email')
+                username = document.getElementById('user-name')
                 // POST DATA
                 let xhr = new XMLHttpRequest()
                 xhr.open("POST", '/api/add_user', true)
@@ -36,7 +37,7 @@
                 xhr.send(JSON.stringify({
                     photo: photo.src,
                     email: email.value,
-                    name: name.value
+                    name: username.value
                 }))
                 xhr.onload = function() {
                     console.log("HELLO")
