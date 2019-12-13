@@ -10,3 +10,7 @@ def index():
 @app.route('/api/add_user', methods=['POST'])
 def add_user():
     return 200
+
+@app.route('/api/process_photo', methods=['POST'])
+def process_photo():
+    return str(200)
