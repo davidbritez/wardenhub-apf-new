@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `wardenhubapf`.`Usuarios` (
   `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `nombre` VARCHAR(50) NOT NULL DEFAULT '',
   `email` VARCHAR(50) NOT NULL DEFAULT '',
-  `rostro` TEXT NOT NULL
+  `rostro` BLOB NOT NULL
   )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;

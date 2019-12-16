@@ -11,7 +11,8 @@ db_config = {
   'password': config.get('db','MYSQL_PASSWORD'),
   'host': config.get('db','MYSQL_HOST'),
   'database': config.get('db','MYSQL_DB'),
-  'raise_on_warnings': True
+  'raise_on_warnings': True,
+  'use_pure':True
 }
 
 
@@ -22,22 +23,24 @@ def connect():
         conn = mysql.connector.connect(**db_config)
         if conn.is_connected():
             return conn
- 
+
     except Error as e:
         print(e)
 
 
-def query_db(sql_query, query_type):
+def query_db(sql_query):
     cnx = connect()
     cursor = cnx.cursor()
     cursor.execute(sql_query)
+    results = cursor.fetchall()
+    cnx.close()
+    return results
 
-    ## SWITCH to handle different query types
-    if(query_type=="select"):
-        results = cursor.fetchall()
-        cnx.close()
-        return results
-
-    if(query_type=="insert"):
-        cnx.commit()
-        cnx.close()
+def insert_db(sql_query, data_array):
+    cnx = connect()
+    cursor = cnx.cursor()
+    cursor.execute('SET NAMES utf8mb4')
+    cursor.execute("SET CHARACTER SET utf8mb4")
+    cursor.execute(sql_query, data_array)
+    cnx.commit()
+    cnx.close()
