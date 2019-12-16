@@ -19,6 +19,8 @@
 
         <button type="submit" id="sendphoto">Recognize Me!</button>
         </form>
+        <br>
+        <div id="result"></div>
         <!-- Scripts -->
         <script type="text/javascript" src="/camera.js"></script>
         <script type="text/javascript">
@@ -36,7 +38,8 @@
                 xhr.onload = function() {
                     console.log("HELLO")
                     console.log(this.responseText);
-                    var data = JSON.parse(this.responseText);
+
+                    document.getElementById('result').innerHTML=this.responseText
                     console.log(data);
                 }
             })
