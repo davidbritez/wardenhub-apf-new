@@ -1,0 +1,60 @@
+body {
+    background-color: #ccc;
+    font-family: sans-serif;
+}
+
+main {
+    width: 50%;
+    margin: 0 auto;
+}
+
+h3 {
+    margin: 2em 0;
+}
+
+.buttonLink, button {
+    text-decoration: none;
+    display: inline-block;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 0.7em;
+    background-color: #002f6d;
+    color: white;
+    font-weight: bold;
+    margin: auto;
+    border-top: solid 1px #fff;
+    border-left: solid 1px #fff;
+    border-bottom: solid 1px #333;
+    border-right: solid 1px #333;
+}
+
+.buttonLink:hover, button:hover {
+    background-color: #007ac2;
+}
+
+.buttonLink:active, button:active {
+    outline: 0;
+    border-top: solid 1px #333;
+    border-left: solid 1px #333;
+    border-bottom: solid 1px #fff;
+    border-right: solid 1px #fff;
+}
+
+button:focus {
+    outline: 0;
+}
+
+input {
+    padding: 0.7em;
+}
+
+.output {
+    display: block;
+    height: 200px;
+    width: 300px;
+    border: solid 1px #888;
+}
+
+video {
+    border: solid 1px #888;
+}
