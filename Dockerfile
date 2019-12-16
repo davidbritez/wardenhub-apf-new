@@ -1,7 +1,10 @@
 FROM python:3.6-slim-stretch
 
+# Create the virtualenvironment before installing anything
+
 RUN pip3 install virtualenv
 RUN virtualenv /env
+
 # Setting these environment variables are the same as running
 # source /env/bin/activate.
 ENV VIRTUAL_ENV /env
@@ -43,7 +46,7 @@ RUN cd ~ && \
 
 
 
-## INSTALL FACE_RECOGNITION
+## INSTALL FACE_RECOGNITION ( From Source )
 RUN git clone https://github.com/ageitgey/face_recognition.git
 RUN ls
 
@@ -63,4 +66,4 @@ RUN pip3 install -r /app/requirements.txt
 
 # Run a WSGI server to serve the application. gunicorn must be declared as
 # a dependency in requirements.txt.
-CMD gunicorn -w 3 -b 0.0.0.0:8080 --chdir /app wsgi --reload
+CMD cd /app && gunicorn --bind 0.0.0.0:$PORT wsgi:app

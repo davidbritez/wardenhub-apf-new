@@ -23,6 +23,10 @@ def index():
 def signup():
     return render_template('signup.html')
 
+@app.route('/recognize')
+def recognize():
+    return render_template('recognize.html')
+
 @app.route('/api/add_user', methods=['POST'])
 def add_user():
     data = json.loads(request.data)
@@ -33,12 +37,12 @@ def add_user():
 
     return "200"
 
-@app.route('/api/process_photo', methods=['POST'])
+@app.route('/api/recognize_user', methods=['POST'])
 def process_photo():
 
     data = json.loads(request.data)
 
-    user_face_encoding = recognize(data['photo'])
+    user_face_encoding = match_user(data['photo'])
 
     return str(200)
 
@@ -64,12 +68,16 @@ def save_user(name, email, face_encoding):
     if (user_exists == []):
         face_encoding_str = np.array_str(face_encoding) #insert string to DB
         insert_query = "INSERT INTO Usuarios (nombre, email, rostro) VALUES('{}', '{}', '{}');".format(name, email, face_encoding_str)
-        db.query_db(sql_query, 'insert')
+        db.query_db(insert_query, 'insert')
     return ''
 
 
 def match_user(face_encoding):
-    user_face_encoding = generate_photo_encodings(face_encoding)
+    user_face_encoding = generate_face_encodings(face_encoding)
+    # Get all faces from db
+    known_faces_query = "SELECT name, rostro from Usuarios"
+    known_faces = db.query_db(known_faces_query, 'select')
+    print(known_faces)
     return ''
     # Find if t
 
